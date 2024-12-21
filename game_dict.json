@@ -2,10 +2,7 @@
     "decisive_positions": [
         {
             "position": "356653",
-            "best_move": [
-                5,
-                1
-            ],
+            "best_move": null,
             "eval": 20
         },
         {

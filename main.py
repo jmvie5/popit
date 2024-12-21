@@ -227,6 +227,46 @@ def add_move_in_game_dict(board_state, move, eval):
             json.dump(game_dict, file, ensure_ascii=False, indent=4)
 
 
+def check_mirror_positions(dict_position, board_state_str:str):
+
+    if (dict_position["position"] == board_state_str):
+        return[dict_position["best_move"], dict_position["eval"]]
+     
+    # swap pos 0 and 5
+    if (board_state_str[5] != board_state_str[0]):
+        temp_swap = board_state_str[5] + board_state_str[1:5] + board_state_str[0]
+        if (dict_position["position"] == temp_swap):
+            best_move = dict_position["best_move"]
+            if best_move[0] == 0:
+                best_move[0] = 5
+            elif best_move[0] == 5:
+                best_move[0] = 0
+            return [best_move, dict_position['eval']]
+
+    # swap pos 1 and 4
+    if (board_state_str[1] != board_state_str[4]):
+        temp_swap = board_state_str[0] + board_state_str[4] + board_state_str[2:4] + board_state_str[1] + board_state_str[5]
+        if (dict_position["position"] == temp_swap):
+            best_move = dict_position["best_move"]
+            if best_move[0] == 1:
+                best_move[0] = 4
+            elif best_move[0] == 4:
+                best_move[0] = 1
+            return [best_move, dict_position['eval']]
+    
+    # swap pos 2 and 3
+    if (board_state_str[2] != board_state_str[3]):
+        temp_swap = board_state_str[0:2] + board_state_str[3] + board_state_str[2] + board_state_str[4:]
+        if (dict_position["position"] == temp_swap):
+            best_move = dict_position["best_move"]
+            if best_move[0] == 2:
+                best_move[0] = 3
+            elif best_move[0] == 3:
+                best_move[0] = 2
+            return [best_move, dict_position['eval']]
+
+
+
 def verify_position_in_dict(board_state):
     with open("game_dict.json") as file:
         game_dict = json.load(file)
@@ -237,8 +277,9 @@ def verify_position_in_dict(board_state):
             board_state_str += str(row[1])
 
         for position in decisive_positions:
-            if position["position"] == board_state_str:
-                return[position["best_move"], position["eval"]]
+            pos_found = check_mirror_positions(position, board_state_str)
+            if (pos_found):
+                return pos_found
         
     return False
 
