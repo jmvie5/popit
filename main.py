@@ -59,6 +59,7 @@ class Board:
 
         return board
 
+
     def pop(self, row, pop_quantity):
 
         if (pop_quantity >= self.state[row][0]):
@@ -84,12 +85,57 @@ class Board:
         
         return completed_rows == 6
 
+
     def switch_players(self):
 
         if self.current_player == self.player_1:
             self.current_player = self.player_2
         else:
             self.current_player = self.player_1
+    
+
+    def get_all_moves(self):
+        """ Get all possible moves on the board
+        
+            Returns:
+                List[Tuple[row:int, number_to_pop:int]]
+        """
+        all_moves = []
+        for i, row in enumerate(self.state):
+            for j in range(row[0] - row[1]):
+                if (j != 0):
+                    all_moves.append((i, j))
+        
+
+        for move in all_moves:
+            print(move)
+
+        return all_moves
+
+
+    def evaluate(self):
+        """ Evaluate current position on the board
+
+            Returns:
+                int : 1 if the board is winning for the current_player, -1 otherwise
+        
+        """
+        min_possible_moves = 0
+        for row in self.state:
+            if (row[1] == 0):
+                min_possible_moves += 2
+            elif (row[0] != row[1]):
+                min_possible_moves += 1
+
+        print(f"\nIn evaluate, min_possible_moves = {min_possible_moves}\n")
+        if (min_possible_moves%2):
+            return -1
+
+        return 1
+    
+    
+    def set_board(self, new_state):
+        pass
 
 
 def validate_input(input:str, board:Board):
@@ -148,12 +194,20 @@ def main():
     while not game_over:
 
         print("\nIt's your turn " + board.current_player)
+        print(f"\nCurrent board eval = {board.evaluate()}\nAll possible moves :")
+        board.get_all_moves()
         move = input(
         """
     Play next move by entering the row number (starts at 0), 
     followed by the number of bubble to pop.
     i.e "0 1"
     """)
+        
+        if (move == "exit"):
+            game_over = True
+            board.current_player = 'nobody'
+            break
+
         isValid, params = validate_input(move, board)
         if (isValid):
             board.pop(params[0], params[1])
