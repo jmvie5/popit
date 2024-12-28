@@ -1,3 +1,6 @@
+import copy
+
+
 class Board:
     def __init__(self, player_1='player_1', player_2='player_2'):
         self.state = [
@@ -63,10 +66,13 @@ class Board:
     def pop(self, row, pop_quantity):
 
         if (pop_quantity >= self.state[row][0]):
-            print("Max pop is row quantity - 1")
+            print("Can't pop a full row")
             return
 
-        if (pop_quantity + self.state[row][1] > self.state[row][0]):
+        if pop_quantity > 3:
+            print("Can't pop more then 3 at a time")
+
+        if pop_quantity + self.state[row][1] > self.state[row][0]:
             print("Can't pop more then max row size")
             return
 
@@ -103,12 +109,9 @@ class Board:
         all_moves = []
         for i, row in enumerate(self.state):
             for j in range(row[0] - row[1]):
-                if (j != 0):
-                    all_moves.append((i, j))
+                if (j+1 != row[0] and j+1 <= 3):
+                    all_moves.append((i, j+1))
         
-
-        for move in all_moves:
-            print(move)
 
         return all_moves
 
@@ -117,26 +120,66 @@ class Board:
         """ Evaluate current position on the board
 
             Returns:
-                int : 1 if the board is winning for the current_player, -1 otherwise
+                int > 0 if board is winning
+                int < 0 if board is loosing
         
         """
+        # all_possible_moves = len(self.get_all_moves())
         min_possible_moves = 0
         for row in self.state:
-            if (row[1] == 0):
+            if (row[1] == 0 or row[1] + 3 < row[0]):
                 min_possible_moves += 2
             elif (row[0] != row[1]):
                 min_possible_moves += 1
 
-        print(f"\nIn evaluate, min_possible_moves = {min_possible_moves}\n")
-        if (min_possible_moves%2):
-            return -1
+        if min_possible_moves == 0:
+            return 20
+        
+        if min_possible_moves%2 == 1:
+            # game is winning for current player
+            return 20 - min_possible_moves
 
-        return 1
+        # game is loosing for current player
+        return -1 * (20 - min_possible_moves)
     
-    
+
     def set_board(self, new_state):
-        pass
+        self.state = new_state
 
+      
+                
+def minimax(board, depth, maximiser, alpha, beta):
+        if depth == 0 or board.validate():
+            if board.validate():
+                print('calc until over')
+            evaluation_multiplier = 1 if maximiser else -1
+            return None, board.evaluate()*evaluation_multiplier
+        
+        if maximiser:
+            best_move = (None, float('-inf'))
+            for move in board.get_all_moves():
+                temp_board = copy.deepcopy(board)
+                temp_board.pop(move[0], move[1])
+                eval = minimax(temp_board, depth - 1, False, alpha, beta)[1]
+                alpha = max(alpha, eval)
+                if eval > best_move[1]:
+                    best_move = move, eval
+                if beta <= alpha:
+                    break
+        
+        if not maximiser:
+            best_move = (None, float('inf'))
+            for move in board.get_all_moves():
+                temp_board = copy.deepcopy(board)
+                temp_board.pop(move[0], move[1])
+                eval = minimax(temp_board, depth - 1, True, alpha, beta)[1]
+                beta = min(beta, eval)
+                if eval < best_move[1]:
+                    best_move = move, eval
+                if beta <= alpha:
+                    break
+        
+        return best_move
 
 def validate_input(input:str, board:Board):
     input_params = input.split(' ')
@@ -194,13 +237,14 @@ def main():
     while not game_over:
 
         print("\nIt's your turn " + board.current_player)
-        print(f"\nCurrent board eval = {board.evaluate()}\nAll possible moves :")
-        board.get_all_moves()
+        print(f"\nCurrent board eval = {board.evaluate()}\nAll possible moves : {board.get_all_moves()}")
+        print(f"Best move from minimax : {minimax(board, 5, True, float('-inf'), float('inf'))}")
+        print(board)
         move = input(
         """
     Play next move by entering the row number (starts at 0), 
     followed by the number of bubble to pop.
-    i.e "0 1"
+    i.e. "0 1"
     """)
         
         if (move == "exit"):
