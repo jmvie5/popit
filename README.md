@@ -11,3 +11,5 @@ I searched the internet and did not find the "real" rules for this game, so here
 3. You can't pop all the bubbles in an empty row
 #
 P.S. If you play the bot, the difficulty is the number of half moves it can see in advance (depth of the minimax algo).
+
+I use simplejson to r/w in the game positions dict.

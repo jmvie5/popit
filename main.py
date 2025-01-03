@@ -1,4 +1,5 @@
 import copy
+import simplejson as json
 
 
 class Board:
@@ -132,13 +133,17 @@ class Board:
             elif (row[0] != row[1]):
                 min_possible_moves += 1
 
+        # no move can be played when the player received the board
+        # the game is over and the player current player wins
         if min_possible_moves == 0:
             return 20
         
-        if min_possible_moves%2 == 1:
-            # game is winning for current player
+        # the number of possible moves in the position is even
+        # game is winning for current player
+        if min_possible_moves%2 == 0:
             return 20 - min_possible_moves
-
+        
+        # the number of possible moves in the position is odd
         # game is loosing for current player
         return -1 * (20 - min_possible_moves)
     
@@ -146,38 +151,97 @@ class Board:
     def set_board(self, new_state):
         self.state = new_state
 
-      
-                
+
 def minimax(board, depth, maximiser, alpha, beta):
-        if depth == 0 or board.validate():
-            evaluation_multiplier = 1 if maximiser else -1
-            return None, board.evaluate()*evaluation_multiplier
+
+    evaluation_multiplier = 1 if maximiser else -1
+
+    # check in dict if it is a known position
+    dict_check = verify_position_in_dict(board.state)
+    if dict_check:
+        return dict_check[0], dict_check[1]*evaluation_multiplier
+
+    if depth == 0 or board.validate():
+        return None, board.evaluate()*evaluation_multiplier
+    
+    if maximiser:
+        best_move = (None, float('-inf'))
+
+        # play every move and minimax the result
+        for move in board.get_all_moves():
+            temp_board = copy.deepcopy(board)
+            temp_board.pop(move[0], move[1])
+
+            eval = minimax(temp_board, depth - 1, False, alpha, beta)[1]
+            # add winning position in game_dict
+            if eval == 20:
+                add_move_in_game_dict(temp_board.state, move, eval)
+
+            alpha = max(alpha, eval)
+            if eval > best_move[1]:
+                best_move = move, eval
+            if beta <= alpha:
+                break
+    
+    if not maximiser:
+        best_move = (None, float('inf'))
         
-        if maximiser:
-            best_move = (None, float('-inf'))
-            for move in board.get_all_moves():
-                temp_board = copy.deepcopy(board)
-                temp_board.pop(move[0], move[1])
-                eval = minimax(temp_board, depth - 1, False, alpha, beta)[1]
-                alpha = max(alpha, eval)
-                if eval > best_move[1]:
-                    best_move = move, eval
-                if beta <= alpha:
-                    break
+        for move in board.get_all_moves():
+            temp_board = copy.deepcopy(board)
+            temp_board.pop(move[0], move[1])
+
+            eval = minimax(temp_board, depth - 1, True, alpha, beta)[1]
+            
+            beta = min(beta, eval)
+            if eval < best_move[1]:
+                best_move = move, eval
+            if beta <= alpha:
+                break
         
-        if not maximiser:
-            best_move = (None, float('inf'))
-            for move in board.get_all_moves():
-                temp_board = copy.deepcopy(board)
-                temp_board.pop(move[0], move[1])
-                eval = minimax(temp_board, depth - 1, True, alpha, beta)[1]
-                beta = min(beta, eval)
-                if eval < best_move[1]:
-                    best_move = move, eval
-                if beta <= alpha:
-                    break
+    return best_move
+
+
+def add_move_in_game_dict(board_state, move, eval):
+    # we need to unpop the move to get the board position before the move was made
+    board_state[move[0]][1] -= move[1]
+    
+    with open("game_dict.json", 'r+') as file:
+        game_dict = json.load(file)
+        board_state_str = ""
+        for row in board_state:
+            board_state_str += str(row[1])
+
+        new_data = {
+            "position" : board_state_str,
+            "best_move": move,
+            "eval": eval
+        }
+        position_found = False
+        for item in game_dict['decisive_positions']:
+            if item["position"] == new_data["position"] and item["eval"] == new_data["eval"]:
+                position_found = True
         
-        return best_move
+        if not position_found:
+            game_dict['decisive_positions'].append(new_data)
+            file.seek(0)
+            json.dump(game_dict, file, ensure_ascii=False, indent=4)
+
+
+def verify_position_in_dict(board_state):
+    with open("game_dict.json") as file:
+        game_dict = json.load(file)
+        decisive_positions = game_dict['decisive_positions']
+        
+        board_state_str = ""
+        for row in board_state:
+            board_state_str += str(row[1])
+
+        for position in decisive_positions:
+            if position["position"] == board_state_str:
+                return[position["best_move"], position["eval"]]
+        
+    return False
+
 
 def validate_input(input:str, board:Board):
     input_params = input.split(' ')
@@ -288,8 +352,9 @@ def main():
         
         # One player, play against the computer
         if game_mode == "1" and not game_over and valid_move:
-            bot_move = minimax(board, bot_difficulty, True, float('-inf'), float('inf'))[0]
-            print(f"\n{player_2_name} plays {bot_move}")
+            minimax_result = minimax(board, bot_difficulty, True, float('-inf'), float('inf'))
+            bot_move = minimax_result[0]
+            print(f"\n{player_2_name} plays {bot_move}, with eval {minimax_result[1]}")
             board.pop(bot_move[0], bot_move[1])
             board.switch_players()
 
