@@ -84,6 +84,9 @@ class Board:
 
     def validate(self):
 
+        if self.current_player == 'nobody':
+            return True
+
         completed_rows = 0
 
         for row in self.state:
@@ -322,6 +325,34 @@ def validate_input(input:str, board:Board):
     return True, validated_params
 
 
+def ask_human_for_move(board):
+    print("\nIt's your turn " + board.current_player)
+    #print(f"\nCurrent board eval = {board.evaluate()}\nAll possible moves : {board.get_all_moves()}")
+    #print(f"Best move from minimax : {minimax(board, 5, True, float('-inf'), float('inf'))}")
+    print(board)
+    move = input("Play next move by entering the row number (starts at 0),\nfollowed by the number of bubble to pop.\ni.e. \"0 1\"\n")
+    
+    if (move == "exit"):
+        board.current_player = 'nobody'
+
+    valid_move, params = validate_input(move, board)
+    if (valid_move):
+        board.pop(params[0], params[1])
+        board.switch_players()
+    else:
+        print("|---ERROR---|")
+        print(params)
+        print("|-----------|")
+    
+    return valid_move
+
+
+def ask_bot_for_move(board, bot_difficulty):
+    minimax_result = minimax(board, bot_difficulty, True, float('-inf'), float('inf'))
+    bot_move = minimax_result[0]
+    print(f"\nBot_lvl_{bot_difficulty} plays {bot_move}, with eval {minimax_result[1]}")
+    board.pop(bot_move[0], bot_move[1])
+    board.switch_players()
 
 
 def main():
@@ -340,22 +371,28 @@ def main():
         \\--------------------------------------/\n\n""")
 
     while game_mode != '1' and game_mode != "2":
-        game_mode = input("Enter a valid game mode (1 or 2)")
+        game_mode = input("Enter a valid game mode (1 or 2)\n")
 
 
     if game_mode == "1":
         
         input_not_valid = True
         while input_not_valid:
-            bot_difficulty = input("\nEnter bot difficulty (1 to 8)\n")
+            bot_difficulty = input("Enter bot difficulty (1 to 20)\nMore then 8 will be real slow if the game was not already analysed in the game_dict.\n")
             try:
                 bot_difficulty = int(bot_difficulty)
-                if bot_difficulty < 9 and bot_difficulty > 0:
+                if bot_difficulty < 21 and bot_difficulty > 0:
                     input_not_valid = False
             except:
                 print("Bot difficulty must be a number between 1 and 8")
-        player_1_name = 'Humain'
-        player_2_name = f'Bot_lvl_{bot_difficulty}'
+
+        humain_first_to_play = input('Do you want to play first? [Yes/no]\n')
+        if humain_first_to_play == 'Yes':
+            player_1_name = 'Humain'
+            player_2_name = f'Bot_lvl_{bot_difficulty}'
+        else:
+            player_1_name = f'Bot_lvl_{bot_difficulty}'
+            player_2_name = 'Humain'
 
     else:
         player_1_name = 'Humain_1'
@@ -366,41 +403,34 @@ def main():
 
     while not game_over:
 
-        print("\nIt's your turn " + board.current_player)
-        #print(f"\nCurrent board eval = {board.evaluate()}\nAll possible moves : {board.get_all_moves()}")
-        #print(f"Best move from minimax : {minimax(board, 5, True, float('-inf'), float('inf'))}")
-        print(board)
-        move = input("Play next move by entering the row number (starts at 0),\nfollowed by the number of bubble to pop.\ni.e. \"0 1\"\n")
-        
-        if (move == "exit"):
-            game_over = True
-            board.current_player = 'nobody'
-            break
+        if game_mode == "1" and player_1_name == "Humain":
 
-        valid_move, params = validate_input(move, board)
-        if (valid_move):
-            board.pop(params[0], params[1])
-            board.switch_players()
-        else:
-            print("|---ERROR---|")
-            print(params)
-            print("|-----------|")
-
-
-        if board.validate():
-            game_over = True
-
-        
-        # One player, play against the computer
-        if game_mode == "1" and not game_over and valid_move:
-            minimax_result = minimax(board, bot_difficulty, True, float('-inf'), float('inf'))
-            bot_move = minimax_result[0]
-            print(f"\n{player_2_name} plays {bot_move}, with eval {minimax_result[1]}")
-            board.pop(bot_move[0], bot_move[1])
-            board.switch_players()
+            valid_move = ask_human_for_move(board)
 
             if board.validate():
                 game_over = True
+
+            
+            # One player, play against the computer
+            if not game_over and valid_move:
+                ask_bot_for_move(board, bot_difficulty)
+
+                if board.validate():
+                    game_over = True
+        elif game_mode == '1' and player_2_name == 'Humain':
+            
+            ask_bot_for_move(board, bot_difficulty)
+
+            if board.validate():
+                game_over = True
+
+            if not game_over:
+                valid_move = ask_human_for_move(board)
+
+                if board.validate():
+                    game_over = True
+
+
 
     print("Game over! Congrats " + board.current_player)
 
