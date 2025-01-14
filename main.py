@@ -231,10 +231,20 @@ def add_move_in_game_dict(board_state, move, eval):
 
 
 def check_mirror_positions(dict_position, board_state_str:str):
+    """ Reduce number of branches need to be check in the minimax tree by checking for mirror positions
+
+        We change the move given by the dict to account for mirror row
+
+        I know there must be a better way to do this then by these if statements, but hey do a pull request if you want
+
+        Returns:
+            [best_move:[row, pops], eval:int] | None
+    
+    """
 
     if (dict_position["position"] == board_state_str):
         return[dict_position["best_move"], dict_position["eval"]]
-     
+    
     # swap pos 0 and 5
     if (board_state_str[5] != board_state_str[0]):
         temp_swap = board_state_str[5] + board_state_str[1:5] + board_state_str[0]
@@ -267,6 +277,73 @@ def check_mirror_positions(dict_position, board_state_str:str):
             elif best_move[0] == 3:
                 best_move[0] = 2
             return [best_move, dict_position['eval']]
+        
+    # swap pos 0-1 and 4-5
+    if (board_state_str[5] != board_state_str[0] and board_state_str[4] != board_state_str[1]):
+        temp_swap = board_state_str[5] + board_state_str[4] + board_state_str[2:4] + board_state_str[1] + board_state_str[0]
+        if (dict_position["position"] == temp_swap):
+            best_move = dict_position["best_move"]
+            if best_move[0] == 0:
+                best_move[0] = 5
+            elif best_move[0] == 5:
+                best_move[0] = 0
+            elif best_move[0] == 1:
+                best_move[0] = 4
+            elif best_move[0] == 4:
+                best_move[0] = 1
+            
+            return [best_move, dict_position['eval']]
+        
+    # swap pos 0-2 and 3-5
+    if (board_state_str[5] != board_state_str[0] and board_state_str[3] != board_state_str[2]):
+        temp_swap = board_state_str[5] + board_state_str[1] + board_state_str[3] + board_state_str[2] + board_state_str[4] + board_state_str[0]
+        if (dict_position["position"] == temp_swap):
+            best_move = dict_position["best_move"]
+            if best_move[0] == 0:
+                best_move[0] = 5
+            elif best_move[0] == 5:
+                best_move[0] = 0
+            elif best_move[0] == 3:
+                best_move[0] = 2
+            elif best_move[0] == 2:
+                best_move[0] = 3
+            return [best_move, dict_position['eval']]
+        
+    # swap pos 1-2 and 3-4
+    if (board_state_str[1] != board_state_str[4] and board_state_str[3] != board_state_str[2]):
+        temp_swap = board_state_str[0] + board_state_str[4] + board_state_str[3] + board_state_str[2] + board_state_str[1] + board_state_str[5]
+        if (dict_position["position"] == temp_swap):
+            best_move = dict_position["best_move"]
+            if best_move[0] == 1:
+                best_move[0] = 4
+            elif best_move[0] == 4:
+                best_move[0] = 1
+            elif best_move[0] == 3:
+                best_move[0] = 2
+            elif best_move[0] == 2:
+                best_move[0] = 3
+            return [best_move, dict_position['eval']]
+        
+
+    # swap pos 0-1-2 and 3-4-5
+    if (board_state_str[5] != board_state_str[0] and board_state_str[1] != board_state_str[4] and board_state_str[3] != board_state_str[2]):
+        temp_swap = board_state_str[5] + board_state_str[4] + board_state_str[3] + board_state_str[2] + board_state_str[1] + board_state_str[0]
+        if (dict_position["position"] == temp_swap):
+            best_move = dict_position["best_move"]
+            if best_move[0] == 0:
+                best_move[0] = 5
+            elif best_move[0] == 5:
+                best_move[0] = 0
+            elif best_move[0] == 1:
+                best_move[0] = 4
+            elif best_move[0] == 4:
+                best_move[0] = 1
+            elif best_move[0] == 3:
+                best_move[0] = 2
+            elif best_move[0] == 2:
+                best_move[0] = 3
+            return [best_move, dict_position['eval']]
+
 
 
 
@@ -326,23 +403,26 @@ def validate_input(input:str, board:Board):
 
 
 def ask_human_for_move(board):
-    print("\nIt's your turn " + board.current_player)
-    #print(f"\nCurrent board eval = {board.evaluate()}\nAll possible moves : {board.get_all_moves()}")
-    #print(f"Best move from minimax : {minimax(board, 5, True, float('-inf'), float('inf'))}")
-    print(board)
-    move = input("Play next move by entering the row number (starts at 0),\nfollowed by the number of bubble to pop.\ni.e. \"0 1\"\n")
-    
-    if (move == "exit"):
-        board.current_player = 'nobody'
+    valid_move = None
 
-    valid_move, params = validate_input(move, board)
-    if (valid_move):
-        board.pop(params[0], params[1])
-        board.switch_players()
-    else:
-        print("|---ERROR---|")
-        print(params)
-        print("|-----------|")
+    while not valid_move:
+        print("\nIt's your turn " + board.current_player)
+        #print(f"\nCurrent board eval = {board.evaluate()}\nAll possible moves : {board.get_all_moves()}")
+        #print(f"Best move from minimax : {minimax(board, 5, True, float('-inf'), float('inf'))}")
+        print(board)
+        move = input("Play next move by entering the row number (starts at 0),\nfollowed by the number of bubble to pop.\ni.e. \"0 1\"\n")
+        
+        if (move == "exit"):
+            board.current_player = 'nobody'
+
+        valid_move, params = validate_input(move, board)
+        if (valid_move):
+            board.pop(params[0], params[1])
+            board.switch_players()
+        else:
+            print("|---ERROR---|")
+            print(params)
+            print("|-----------|")
     
     return valid_move
 
