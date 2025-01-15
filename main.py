@@ -415,6 +415,7 @@ def ask_human_for_move(board):
         
         if (move == "exit"):
             board.current_player = 'nobody'
+            return False
 
         valid_move, params = validate_input(move, board)
         if (valid_move):
@@ -510,6 +511,9 @@ def main():
         if game_mode == "1" and player_1_name == "Humain":
 
             valid_move = ask_human_for_move(board)
+
+            if valid_move == False:
+                game_over = True
 
             if board.validate():
                 game_over = True
