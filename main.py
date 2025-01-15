@@ -1,6 +1,7 @@
 import copy
 import simplejson as json
 
+winning_positions = []
 
 class Board:
     def __init__(self, player_1='player_1', player_2='player_2'):
@@ -208,26 +209,26 @@ def add_move_in_game_dict(board_state, move, eval):
     # we need to unpop the move to get the board position before the move was made
     board_state[move[0]][1] -= move[1]
     
-    with open("game_dict.json", 'r+') as file:
-        game_dict = json.load(file)
-        board_state_str = ""
-        for row in board_state:
-            board_state_str += str(row[1])
+    board_state_str = ""
+    
+    for row in board_state:
+        board_state_str += str(row[1])
 
-        new_data = {
-            "position" : board_state_str,
-            "best_move": move,
-            "eval": eval
-        }
-        position_found = False
-        for item in game_dict['decisive_positions']:
-            if item["position"] == new_data["position"] and item["eval"] == new_data["eval"]:
-                position_found = True
-        
-        if not position_found:
-            game_dict['decisive_positions'].append(new_data)
-            file.seek(0)
-            json.dump(game_dict, file, ensure_ascii=False, indent=4)
+    new_data = {
+        "position" : board_state_str,
+        "best_move": move,
+        "eval": eval
+    }
+    position_found = False
+
+    global winning_positions
+
+    for item in winning_positions:
+        if item["position"] == new_data["position"] and item["eval"] == new_data["eval"]:
+            position_found = True
+    
+    if not position_found:
+        winning_positions.append(new_data)
 
 
 def check_mirror_positions(dict_position, board_state_str:str):
@@ -348,18 +349,18 @@ def check_mirror_positions(dict_position, board_state_str:str):
 
 
 def verify_position_in_dict(board_state):
-    with open("game_dict.json") as file:
-        game_dict = json.load(file)
-        decisive_positions = game_dict['decisive_positions']
         
-        board_state_str = ""
-        for row in board_state:
-            board_state_str += str(row[1])
+    board_state_str = ""
 
-        for position in decisive_positions:
-            pos_found = check_mirror_positions(position, board_state_str)
-            if (pos_found):
-                return pos_found
+    for row in board_state:
+        board_state_str += str(row[1])
+
+    global winning_positions
+
+    for position in winning_positions:
+        pos_found = check_mirror_positions(position, board_state_str)
+        if (pos_found):
+            return pos_found
         
     return False
 
@@ -434,6 +435,21 @@ def ask_bot_for_move(board, bot_difficulty):
     board.pop(bot_move[0], bot_move[1])
     board.switch_players()
 
+    
+def load_winning_positions():
+    with open("game_dict.json", 'r+') as file:
+        game_dict = json.load(file)
+        return  game_dict['decisive_positions']
+
+
+def write_winning_positions():
+    with open("game_dict.json", 'r+') as file:
+        game_dict = json.load(file)
+        game_dict['decisive_positions'] = winning_positions
+        file.seek(0)
+        json.dump(game_dict, file, ensure_ascii=False, indent=4)
+
+        
 
 def main():
 
@@ -450,6 +466,13 @@ def main():
         |--------------2: 2 players------------|
         \\--------------------------------------/\n\n""")
 
+    global winning_positions
+    try:
+        winning_positions = load_winning_positions()
+
+    except:
+        print('Could not open game_dict.json, make sure the file exist')
+    
     while game_mode != '1' and game_mode != "2":
         game_mode = input("Enter a valid game mode (1 or 2)\n")
 
@@ -497,6 +520,7 @@ def main():
 
                 if board.validate():
                     game_over = True
+
         elif game_mode == '1' and player_2_name == 'Humain':
             
             ask_bot_for_move(board, bot_difficulty)
@@ -511,7 +535,7 @@ def main():
                     game_over = True
 
 
-
+    write_winning_positions(winning_positions)
     print("Game over! Congrats " + board.current_player)
 
 
