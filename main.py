@@ -442,7 +442,7 @@ def load_winning_positions():
         return  game_dict['decisive_positions']
 
 
-def write_winning_positions():
+def write_winning_positions(winning_positions):
     with open("game_dict.json", 'r+') as file:
         game_dict = json.load(file)
         game_dict['decisive_positions'] = winning_positions
@@ -469,6 +469,7 @@ def main():
     global winning_positions
     try:
         winning_positions = load_winning_positions()
+        print(len(winning_positions))
 
     except:
         print('Could not open game_dict.json, make sure the file exist')
