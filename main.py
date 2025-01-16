@@ -250,7 +250,7 @@ def check_mirror_positions(dict_position, board_state_str:str):
     if (board_state_str[5] != board_state_str[0]):
         temp_swap = board_state_str[5] + board_state_str[1:5] + board_state_str[0]
         if (dict_position["position"] == temp_swap):
-            best_move = dict_position["best_move"]
+            best_move = list(dict_position["best_move"])
             if best_move[0] == 0:
                 best_move[0] = 5
             elif best_move[0] == 5:
@@ -261,7 +261,7 @@ def check_mirror_positions(dict_position, board_state_str:str):
     if (board_state_str[1] != board_state_str[4]):
         temp_swap = board_state_str[0] + board_state_str[4] + board_state_str[2:4] + board_state_str[1] + board_state_str[5]
         if (dict_position["position"] == temp_swap):
-            best_move = dict_position["best_move"]
+            best_move = list(dict_position["best_move"])
             if best_move[0] == 1:
                 best_move[0] = 4
             elif best_move[0] == 4:
@@ -272,7 +272,7 @@ def check_mirror_positions(dict_position, board_state_str:str):
     if (board_state_str[2] != board_state_str[3]):
         temp_swap = board_state_str[0:2] + board_state_str[3] + board_state_str[2] + board_state_str[4:]
         if (dict_position["position"] == temp_swap):
-            best_move = dict_position["best_move"]
+            best_move = list(dict_position["best_move"])
             if best_move[0] == 2:
                 best_move[0] = 3
             elif best_move[0] == 3:
@@ -283,7 +283,7 @@ def check_mirror_positions(dict_position, board_state_str:str):
     if (board_state_str[5] != board_state_str[0] and board_state_str[4] != board_state_str[1]):
         temp_swap = board_state_str[5] + board_state_str[4] + board_state_str[2:4] + board_state_str[1] + board_state_str[0]
         if (dict_position["position"] == temp_swap):
-            best_move = dict_position["best_move"]
+            best_move = list(dict_position["best_move"])
             if best_move[0] == 0:
                 best_move[0] = 5
             elif best_move[0] == 5:
@@ -299,7 +299,7 @@ def check_mirror_positions(dict_position, board_state_str:str):
     if (board_state_str[5] != board_state_str[0] and board_state_str[3] != board_state_str[2]):
         temp_swap = board_state_str[5] + board_state_str[1] + board_state_str[3] + board_state_str[2] + board_state_str[4] + board_state_str[0]
         if (dict_position["position"] == temp_swap):
-            best_move = dict_position["best_move"]
+            best_move = list(dict_position["best_move"])
             if best_move[0] == 0:
                 best_move[0] = 5
             elif best_move[0] == 5:
@@ -314,7 +314,7 @@ def check_mirror_positions(dict_position, board_state_str:str):
     if (board_state_str[1] != board_state_str[4] and board_state_str[3] != board_state_str[2]):
         temp_swap = board_state_str[0] + board_state_str[4] + board_state_str[3] + board_state_str[2] + board_state_str[1] + board_state_str[5]
         if (dict_position["position"] == temp_swap):
-            best_move = dict_position["best_move"]
+            best_move = list(dict_position["best_move"])
             if best_move[0] == 1:
                 best_move[0] = 4
             elif best_move[0] == 4:
@@ -330,7 +330,7 @@ def check_mirror_positions(dict_position, board_state_str:str):
     if (board_state_str[5] != board_state_str[0] and board_state_str[1] != board_state_str[4] and board_state_str[3] != board_state_str[2]):
         temp_swap = board_state_str[5] + board_state_str[4] + board_state_str[3] + board_state_str[2] + board_state_str[1] + board_state_str[0]
         if (dict_position["position"] == temp_swap):
-            best_move = dict_position["best_move"]
+            best_move = list(dict_position["best_move"])
             if best_move[0] == 0:
                 best_move[0] = 5
             elif best_move[0] == 5:
