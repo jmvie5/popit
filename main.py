@@ -422,9 +422,7 @@ def ask_human_for_move(board):
             board.pop(params[0], params[1])
             board.switch_players()
         else:
-            print("|---ERROR---|")
-            print(params)
-            print("|-----------|")
+            format_print(params)
     
     return valid_move
 
@@ -450,27 +448,31 @@ def write_winning_positions(winning_positions):
         file.seek(0)
         json.dump(game_dict, file, ensure_ascii=False, indent=4)
 
-        
+
+def format_print(message):
+    print(f'\n|{len(message) * '-'}|')
+    print(f'{message}')
+    print(f'|{len(message) * '-'}|\n')
+
 
 def main():
 
     # 40 char per line
     game_mode = input("""
-        /--------------------------------------\\
-        |----------Welcome to Pop it!----------|
-        |--------------------------------------|
-        |------------The last player-----------|
-        |--------------to pop loses------------|
-        |--------------------------------------|
-        |---------------Game Modes-------------|
-        |--------------1: 1 player-------------|
-        |--------------2: 2 players------------|
-        \\--------------------------------------/\n\n""")
+                /--------------------------------------\\
+                |----------Welcome to Pop it!----------|
+                |--------------------------------------|
+                |------------The last player-----------|
+                |--------------to pop loses------------|
+                |--------------------------------------|
+                |---------------Game Modes-------------|
+                |--------------1: 1 player-------------|
+                |--------------2: 2 players------------|
+                \\--------------------------------------/\n\n""")
 
     global winning_positions
     try:
         winning_positions = load_winning_positions()
-        print(len(winning_positions))
 
     except:
         print('Could not open game_dict.json, make sure the file exist')
@@ -489,7 +491,7 @@ def main():
                 if bot_difficulty < 21 and bot_difficulty > 0:
                     input_not_valid = False
             except:
-                print("Bot difficulty must be a number between 1 and 8")
+                format_print("Bot difficulty must be a number between 1 and 8")
 
         humain_first_to_play = input('Do you want to play first? [Yes/no]\n')
         if humain_first_to_play == 'Yes':
@@ -541,7 +543,7 @@ def main():
 
 
     write_winning_positions(winning_positions)
-    print("Game over! Congrats " + board.current_player)
+    format_print("Game over! Congrats " + board.current_player)
 
 
 
