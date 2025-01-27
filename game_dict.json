@@ -28143,6 +28143,942 @@
                 1
             ],
             "eval": 20
+        },
+        {
+            "position": "043100",
+            "best_move": [
+                0,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "046200",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "046600",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "046510",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "046520",
+            "best_move": [
+                4,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "046300",
+            "best_move": [
+                3,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "046110",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "046430",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "046450",
+            "best_move": [
+                3,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "046120",
+            "best_move": [
+                3,
+                3
+            ],
+            "eval": 20
+        },
+        {
+            "position": "044100",
+            "best_move": [
+                2,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "042200",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "053300",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "145500",
+            "best_move": [
+                0,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "045300",
+            "best_move": [
+                0,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "043310",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "043320",
+            "best_move": [
+                0,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "046630",
+            "best_move": [
+                4,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "046340",
+            "best_move": [
+                3,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "043330",
+            "best_move": [
+                2,
+                3
+            ],
+            "eval": 20
+        },
+        {
+            "position": "042300",
+            "best_move": [
+                2,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "042110",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "053120",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "044120",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "145140",
+            "best_move": [
+                0,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "145121",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "045120",
+            "best_move": [
+                0,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "043220",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "043420",
+            "best_move": [
+                2,
+                3
+            ],
+            "eval": 20
+        },
+        {
+            "position": "143141",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "043140",
+            "best_move": [
+                0,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "055150",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "045250",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "045350",
+            "best_move": [
+                3,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "043150",
+            "best_move": [
+                2,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "042120",
+            "best_move": [
+                2,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "040100",
+            "best_move": [
+                2,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "031100",
+            "best_move": [
+                1,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "032100",
+            "best_move": [
+                0,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "033100",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "030200",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "050400",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "044500",
+            "best_move": [
+                2,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "042510",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "053520",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "145540",
+            "best_move": [
+                0,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "145521",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "045520",
+            "best_move": [
+                0,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "043540",
+            "best_move": [
+                0,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "042520",
+            "best_move": [
+                2,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "040500",
+            "best_move": [
+                2,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "040410",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "040420",
+            "best_move": [
+                0,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "042430",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "045530",
+            "best_move": [
+                4,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "045440",
+            "best_move": [
+                3,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "044430",
+            "best_move": [
+                2,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "041530",
+            "best_move": [
+                2,
+                3
+            ],
+            "eval": 20
+        },
+        {
+            "position": "054440",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "041440",
+            "best_move": [
+                2,
+                3
+            ],
+            "eval": 20
+        },
+        {
+            "position": "040430",
+            "best_move": [
+                2,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "030400",
+            "best_move": [
+                1,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "030110",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "235522",
+            "best_move": [
+                0,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "135520",
+            "best_move": [
+                0,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "134620",
+            "best_move": [
+                4,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "134220",
+            "best_move": [
+                3,
+                3
+            ],
+            "eval": 20
+        },
+        {
+            "position": "133520",
+            "best_move": [
+                2,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "130220",
+            "best_move": [
+                2,
+                3
+            ],
+            "eval": 20
+        },
+        {
+            "position": "030120",
+            "best_move": [
+                0,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "050130",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "041130",
+            "best_move": [
+                2,
+                3
+            ],
+            "eval": 20
+        },
+        {
+            "position": "040230",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "052140",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "042240",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "042340",
+            "best_move": [
+                2,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "040140",
+            "best_move": [
+                2,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "030130",
+            "best_move": [
+                1,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "000100",
+            "best_move": [
+                1,
+                3
+            ],
+            "eval": 20
+        },
+        {
+            "position": "101100",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "204100",
+            "best_move": [
+                1,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "304400",
+            "best_move": [
+                2,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "314401",
+            "best_move": [
+                2,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "324411",
+            "best_move": [
+                1,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "314402",
+            "best_move": [
+                2,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "324412",
+            "best_move": [
+                1,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "304101",
+            "best_move": [
+                2,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "314103",
+            "best_move": [
+                1,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "304102",
+            "best_move": [
+                1,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "201101",
+            "best_move": [
+                1,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "102100",
+            "best_move": [
+                1,
+                3
+            ],
+            "eval": 20
+        },
+        {
+            "position": "205100",
+            "best_move": [
+                2,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "305101",
+            "best_move": [
+                1,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "315401",
+            "best_move": [
+                4,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "315103",
+            "best_move": [
+                2,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "305102",
+            "best_move": [
+                2,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "202200",
+            "best_move": [
+                1,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "302202",
+            "best_move": [
+                2,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "202400",
+            "best_move": [
+                1,
+                3
+            ],
+            "eval": 20
+        },
+        {
+            "position": "302401",
+            "best_move": [
+                2,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "302402",
+            "best_move": [
+                1,
+                3
+            ],
+            "eval": 20
+        },
+        {
+            "position": "202101",
+            "best_move": [
+                1,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "103100",
+            "best_move": [
+                2,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "206100",
+            "best_move": [
+                1,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "306400",
+            "best_move": [
+                1,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "316402",
+            "best_move": [
+                1,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "326412",
+            "best_move": [
+                3,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "306102",
+            "best_move": [
+                3,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "316103",
+            "best_move": [
+                1,
+                3
+            ],
+            "eval": 20
+        },
+        {
+            "position": "203400",
+            "best_move": [
+                2,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "303401",
+            "best_move": [
+                1,
+                3
+            ],
+            "eval": 20
+        },
+        {
+            "position": "313403",
+            "best_move": [
+                2,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "303402",
+            "best_move": [
+                2,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "203101",
+            "best_move": [
+                1,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "100200",
+            "best_move": [
+                1,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "100400",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "200401",
+            "best_move": [
+                1,
+                3
+            ],
+            "eval": 20
         }
     ]
 }

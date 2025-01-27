@@ -29,27 +29,25 @@ class Board:
         for row in self.state:
             start = ""
             end = ""
-            match row[0]:
-                case 3:
-                    if (first_3):
-                        start =  " /---"
-                        end = "--\\\n"
-                        first_3 = False
-                    else:
-                        start =  " \\---"
-                        end = "--/\n"
-                case 5:
-                    if (first_5):
-                        start =  "/--"
-                        end = "-\\\n"
-                        first_5 = False
-                    else:
-                        start =  "\\--"
-                        end = "-/\n"
-
-                case 6:
-                    start = "|-"
-                    end = "|\n"
+            if (row[0] == 3):
+                if (first_3):
+                    start =  " /---"
+                    end = "--\\\n"
+                    first_3 = False
+                else:
+                    start =  " \\---"
+                    end = "--/\n"
+            elif (row[0] == 5):
+                if (first_5):
+                    start =  "/--"
+                    end = "-\\\n"
+                    first_5 = False
+                else:
+                    start =  "\\--"
+                    end = "-/\n"
+            elif (row[0] == 6):
+                start = "|-"
+                end = "|\n"
             
             board += start
             for i in range(row[0]):
@@ -450,9 +448,9 @@ def write_winning_positions(winning_positions):
 
 
 def format_print(message):
-    print(f'\n|{len(message) * '-'}|')
+    print(f"\n|{len(message) * '-'}|")
     print(f'{message}')
-    print(f'|{len(message) * '-'}|\n')
+    print(f"|{len(message) * '-'}|\n")
 
 
 def main():
