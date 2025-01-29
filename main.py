@@ -112,6 +112,20 @@ def check_mirror_positions(dict_position, board_state_str:str):
             return [best_move, dict_position['eval']]
         return None
     
+    def check_double_swapped_positions(swapped_board_state_str, pos1, pos2, pos3, pos4):
+        if dict_position["position"] == swapped_board_state_str:
+            best_move = list(dict_position["best_move"])
+            if best_move[0] == pos1:
+                best_move[0] = pos2
+            elif best_move[0] == pos2:
+                best_move[0] = pos1
+            elif best_move[0] == pos3:
+                best_move[0] = pos4
+            elif best_move[0] == pos4:
+                best_move[0] = pos3
+            return [best_move, dict_position['eval']]
+        return None
+    
 
     mirror_positions = [(0, 5), (1, 4), (2, 3)]
 
@@ -120,7 +134,15 @@ def check_mirror_positions(dict_position, board_state_str:str):
         swapped_board_state_str = swap_positions(board_state_str, pos1, pos2)
         result = check_swapped_positions(swapped_board_state_str, pos1, pos2)
         if result:
-            return result
+            test_board = Board()
+            test_board.set_state_from_str(board_state_str)
+            is_valid, params = validate_input(f"{result[0][0]} {result[0][1]}", test_board)
+            if is_valid:
+                return result
+            else:
+                print("Error in check_mirror_positions, single swap", params, board_state_str, result)
+                raise Exception("Error in check_mirror_positions", params)
+            
 
     # Check double swaps
     for i in range(len(mirror_positions)):
@@ -129,17 +151,32 @@ def check_mirror_positions(dict_position, board_state_str:str):
             pos3, pos4 = mirror_positions[j]
             swapped_board_state_str = swap_positions(board_state_str, pos1, pos2)
             swapped_board_state_str = swap_positions(swapped_board_state_str, pos3, pos4)
-            result = check_swapped_positions(swapped_board_state_str, pos3, pos4)
+            result = check_double_swapped_positions(swapped_board_state_str, pos1, pos2, pos3, pos4)
             if result:
-                return result
+                test_board = Board()
+                test_board.set_state_from_str(board_state_str)
+                is_valid, params = validate_input(f"{result[0][0]} {result[0][1]}", test_board)
+                if is_valid:
+                    return result
+                else:
+                    print("Error in check_mirror_positions, double swap", params, board_state_str, swapped_board_state_str, result, pos1, pos2, pos3, pos4)
+                    raise Exception("Error in check_mirror_positions", params)
         
 
     # swap pos 0-1-2 and 3-4-5
     swapped_board_state_str = board_state_str[::-1]
     if (dict_position["position"] == swapped_board_state_str):
         best_move = list(dict_position["best_move"])
-        best_move[0] = 5 - best_move[0]
-        return [best_move, dict_position['eval']]
+        if best_move:
+            best_move[0] = 5 - best_move[0]
+            test_board = Board()
+            test_board.set_state_from_str(board_state_str)
+            is_valid, params = validate_input(f"{best_move[0]} {best_move[1]}", test_board)
+            if is_valid:
+                return [best_move, dict_position['eval']]
+            else:
+                print("Error in check_mirror_positions, single swap", params)
+                raise Exception("Error in check_mirror_positions", params)
 
 
 
