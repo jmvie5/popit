@@ -29079,6 +29079,54 @@
                 3
             ],
             "eval": 20
+        },
+        {
+            "position": "000010",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "110010",
+            "best_move": [
+                0,
+                2
+            ],
+            "eval": 20
+        },
+        {
+            "position": "212010",
+            "best_move": [
+                1,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "210011",
+            "best_move": [
+                1,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "120010",
+            "best_move": [
+                1,
+                1
+            ],
+            "eval": 20
+        },
+        {
+            "position": "100020",
+            "best_move": [
+                2,
+                2
+            ],
+            "eval": 20
         }
     ]
 }
