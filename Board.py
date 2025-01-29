@@ -147,3 +147,12 @@ class Board:
 
     def set_board(self, new_state):
         self.state = new_state
+    
+    
+    def set_state_from_str(self, state_str: str):
+        new_state = [[3, 0], [5, 0], [6, 0], [6, 0], [5, 0], [3, 0]]
+        for i, char in enumerate(state_str):
+            new_state[i][1] = int(char)
+
+        self.state = new_state
+    
