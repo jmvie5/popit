@@ -4,6 +4,7 @@ from Board import Board
 
 
 winning_positions = []
+game_dict_allowed = True
 
 
 def minimax(board, depth, maximiser, alpha, beta):
@@ -11,9 +12,11 @@ def minimax(board, depth, maximiser, alpha, beta):
     evaluation_multiplier = 1 if maximiser else -1
 
     # check in dict if it is a known position
-    dict_check = verify_position_in_dict(board.state)
-    if dict_check:
-        return dict_check[0], dict_check[1]*evaluation_multiplier
+    global game_dict_allowed
+    if game_dict_allowed:
+        dict_check = verify_position_in_dict(board.state)
+        if dict_check:
+            return dict_check[0], dict_check[1]*evaluation_multiplier
 
     if depth == 0 or board.validate():
         return None, board.evaluate()*evaluation_multiplier
@@ -295,6 +298,9 @@ def format_print(message):
 
 def main():
 
+    global game_dict_allowed
+    global winning_positions
+
     # 40 char per line
     game_mode = input("""
                 /--------------------------------------\\
@@ -307,13 +313,6 @@ def main():
                 |--------------1: 1 player-------------|
                 |--------------2: 2 players------------|
                 \\--------------------------------------/\n\n""")
-
-    global winning_positions
-    try:
-        winning_positions = load_winning_positions()
-
-    except:
-        print('Could not open game_dict.json, make sure the file exist')
     
     while game_mode != '1' and game_mode != "2":
         game_mode = input("Enter a valid game mode (1 or 2)\n")
@@ -329,15 +328,28 @@ def main():
                 if bot_difficulty < 21 and bot_difficulty > 0:
                     input_not_valid = False
             except:
-                format_print("Bot difficulty must be a number between 1 and 8")
+                format_print("Bot difficulty must be a number between 1 and 20")
+
+        can_bot_use_dict = input("Is the bot allowed to use the game position dictionary?\n(Way faster, but almost impossible to beat even at difficulty 1) [Yes/no]\n")
+
+        if can_bot_use_dict == "no":
+            game_dict_allowed = False
+            format_print("Bot will not use the game position dictionary")
+        else:
+            try:
+                winning_positions = load_winning_positions()
+
+            except:
+                format_print('Could not open game_dict.json, make sure the file exist. Playing without game dict.')
+
 
         humain_first_to_play = input('Do you want to play first? [Yes/no]\n')
-        if humain_first_to_play == 'Yes':
-            player_1_name = 'Humain'
-            player_2_name = f'Bot_lvl_{bot_difficulty}'
-        else:
+        if humain_first_to_play == 'no':
             player_1_name = f'Bot_lvl_{bot_difficulty}'
             player_2_name = 'Humain'
+        else:
+            player_1_name = 'Humain'
+            player_2_name = f'Bot_lvl_{bot_difficulty}'
 
     else:
         player_1_name = 'Humain_1'
@@ -379,8 +391,10 @@ def main():
                 if board.validate():
                     game_over = True
 
+    
+    if game_dict_allowed:
+        write_winning_positions(winning_positions)
 
-    write_winning_positions(winning_positions)
     format_print("Game over! Congrats " + board.current_player)
 
 
